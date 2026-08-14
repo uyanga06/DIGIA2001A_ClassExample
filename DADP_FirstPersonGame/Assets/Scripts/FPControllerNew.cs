@@ -20,6 +20,12 @@ public float jumpHeight = 1.5f;
     public float standHeight = 2f;
     public float crouchSpeed = 2.5f;
     private float originalMoveSpeed;
+
+    [Header("Pick Up Settings")]
+    public float pickupRange = 3f; // Maximum distance at which the player can pick up objects.
+    public Transform pickupPoint;
+    private PickUpObject heldObject; // Reference to the currently held object.
+
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector2 lookInput;
@@ -124,6 +130,30 @@ verticalLookLimit
                 rb.AddForce(gunPoint.forward * bulletForce); // Adjust force value as needed
             }
         }
+    }
+
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            controller.height = crouchHeight;
+            moveSpeed = crouchSpeed;
+        }
+        else if (context.canceled)
+        {
+            controller.height = standHeight;
+            moveSpeed = originalMoveSpeed;
+        }
+    }
+
+    public void OnPickUp(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (heldObject == null)
+        {
+            Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+        }
+
     }
 
 
