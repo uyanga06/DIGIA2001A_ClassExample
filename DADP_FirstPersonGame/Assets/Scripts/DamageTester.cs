@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DamageTester : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class DamageTester : MonoBehaviour
             {
                // interactable.TakeDamage(int amount);
             }
+        }
+    }
+
+    public void OnDamage(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+
         }
     }
 }
